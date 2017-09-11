@@ -1,0 +1,1 @@
+{"bookings":[{"place":"A","items":[{"name":"U002","date":"2017-08-01","time":"19:00~22:00","subPrice":100,"cancel":true},{"name":"U002","date":"2017-08-01","time":"19:00~22:00","subPrice":200,"cancel":false}],"subTotal":300}],"total":300}

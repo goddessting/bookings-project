@@ -6,7 +6,6 @@ function judgeInput(booking) {
     let bookingInfo;
 
     if (bookingSplit.length < 4 || bookingSplit.length > 5) {
-
         console.log('Error: the booking is invalid!');
 
         return;
@@ -27,7 +26,7 @@ function judgeInput(booking) {
                 return;
             }
             if (bookingSplit.length === 5) {
-                cancelBooking(bookingSplit, bookingInfo);
+                cancelBooking(bookingSplit, bookingInfo, info);
 
                 return;
             }
@@ -37,12 +36,12 @@ function judgeInput(booking) {
 }
 
 function bookPlace(bookingSplit, info, bookingInfo) {
-    console.log(judgeConflict(bookingSplit, bookingInfo));
     if (judgeDate(bookingSplit[1]) && judgeTime(bookingSplit[2]) && judgeChar(bookingSplit.slice(3)) && judgeConflict(bookingSplit, bookingInfo).flag) {
 
         let subPrice = calculateSubPrice(bookingSplit, info);
 
         let item = {
+            name: bookingSplit[0],
             date: bookingSplit[1],
             time: bookingSplit[2],
             subPrice: subPrice,
@@ -58,7 +57,7 @@ function bookPlace(bookingSplit, info, bookingInfo) {
     }
 }
 
-function cancelBooking(bookingSplit, bookingInfo) {
+function cancelBooking(bookingSplit, bookingInfo, info) {
     if (judgeDate(bookingSplit[1]) && judgeTime(bookingSplit[2]) && judgeChar(bookingSplit.slice(3, 4))) {
         let res = judgeConflict(bookingSplit, bookingInfo);
         if (res.flag) {
@@ -306,7 +305,7 @@ function judgeConflict(bookingSplit, bookingInfo) {
                     }
 
                 } else if (bookingSplit.length === 5) {
-                    if (startTime === start && endTime === end && !bookingInfo.bookings[j].items[i].cancel) {
+                    if (startTime === start && endTime === end && !bookingInfo.bookings[j].items[i].cancel && bookingInfo.bookings[j].items[i].name === bookingSplit[0]) {
 
                         return {flag: false, index: i};
                     }
